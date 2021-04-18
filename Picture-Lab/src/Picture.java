@@ -287,8 +287,31 @@ public class Picture extends SimplePicture
 							      topPixel.setColor(bottomPixel.getColor());       
 							  }     
 							}  
-					      //Redo push
+					
 						}
+					
+					//Mirror a picture diagonally
+					public  void mirrorDiagonal()
+					{
+						  Pixel[][] pixels = this.getPixels2D();
+						  Pixel topPixel = null;
+					      Pixel bottomPixel = null;
+						  int width = pixels[0].length;
+						  //int midway = caterpillar.getHeight() / 2;
+
+					      for (int row = 0; row < pixels.length; row++)
+					      {       
+							  for (int col = 0; col < width; col++)
+							  {  
+								  if(col < pixels.length)
+								  {
+							      topPixel = pixels[row][col];  
+							      bottomPixel = pixels[(pixels.length - 1) - row][col];       
+							      topPixel.setColor(bottomPixel.getColor());   
+								  }
+							  }     
+						   }  
+					}
 							
 			
   /* Main method for testing - each class in Java can have a main 
@@ -306,6 +329,7 @@ public class Picture extends SimplePicture
 		}
 	} // this } is the end of class Picture, put all new methods before this
 =======
+
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
@@ -532,7 +556,6 @@ public class Picture extends SimplePicture
 				}
 				}
 			}
-
 	/** Method that mirrors the picture around a 
 	* vertical mirror in the center of the picture
     * from left to right */
@@ -553,26 +576,6 @@ public class Picture extends SimplePicture
 			 	} 
 		}			
 	
-
-
-			public void fixUnderwater()
-			{
-				Pixel[][] pixels = this.getPixels2D();
-				for(Pixel[] rowArray : pixels)
-				{
-					for(Pixel pixelObj : rowArray)
-					{
-					if(pixelObj.getBlue() > 175)
-					{
-						pixelObj.setBlue(pixelObj.getBlue() + 300);
-						pixelObj.setGreen(pixelObj.getGreen() - 55);
-					}
-					}
-				}
-			}
-			
-
-
 			  /** Method that mirrors the picture around a 
 			    * horizontal mirror in the center of the picture
 			    * from top to bottom */
@@ -585,35 +588,51 @@ public class Picture extends SimplePicture
 					  int width = pixels[0].length;
 					  int midway = caterpillar.getHeight() / 2;
 					  for (int row = 0; row < pixels.length / 2; row++){       
-						  for (int col = 0; col < pixels[0].length; col++){                 
+						  for (int col = 0; col < pixels[0].length; col++)
+						  {                 
 						      topPixel = pixels[row][col];  
 						      bottomPixel = pixels[(pixels.length - 1) - row][col];       
 						      bottomPixel.setColor(topPixel.getColor());       
 						  }     
 						} 
 					}
-
 				
+				 /** Method that mirrors the picture around a 
+				    * horizontal mirror in the center of the picture
+				    * from bottom to top */
+					public void mirrorHorizontalBottomToTop()
+						{
+						  Picture caterpillar = new Picture("caterpillar.jpg");
+						  Pixel[][] pixels = this.getPixels2D();
+						  Pixel topPixel = null;
+					      Pixel bottomPixel = null;
+						  int width = pixels[0].length;
+						  int midway = caterpillar.getHeight() / 2;
+
+					      for (int col = 0; col < width; col++)
+					      {       
+							  for (int row = 0; row < midway; row++)
+							  {                 
+							      topPixel = pixels[row][col];  
+							      bottomPixel = pixels[(pixels.length - 1) - row][col];       
+							      topPixel.setColor(bottomPixel.getColor());       
+							  }     
+							}  
+					      //Redo push
+						}
+							
 			
-			
-
-
-
   /* Main method for testing - each class in Java can have a main 
    * method 
    */
 	public static void main(String[] args) 
 		{
-	    //Picture beach = new Picture("beach.jpg");
+	    Picture beach = new Picture("beach.jpg");
 	    //beach.explore();
 	    //beach.zeroBlue();
 	    //beach.keepOnlyBlue();
 	    //beach.negate();
 	    //beach.grayscale();
-		//Picture water = new Picture("water.jpg");
-		//water.explore();
-	    //water.fixUnderwater();
-	    //water.explore();
 	    //beach.explore();
 		}
 	} // this } is the end of class Picture, put all new methods before this
